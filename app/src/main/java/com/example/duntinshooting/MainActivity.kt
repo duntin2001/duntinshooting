@@ -1,24 +1,37 @@
 package com.example.duntinshooting
 
-import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.GestureDetector
 import android.widget.ImageView
+import com.bumptech.glide.annotation.GlideModule
+import com.bumptech.glide.module.AppGlideModule
 import kotlinx.coroutines.*
+@GlideModule
+public final class MyAppGlideModule : AppGlideModule()
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
 
     lateinit var img : ImageView
     lateinit var game : Game
     var flag:Boolean = false
     lateinit var job : Job
+    lateinit var imgAuthor : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         img = findViewById(R.id.img)
         game = findViewById(R.id.game)
+
+        imgAuthor = findViewById(R.id.imgAuthor)
+        GlideApp.with(this)
+            //.load(R.drawable.earth)
+            .load(R.drawable.dt)
+            .circleCrop()
+            .override(800, 600)
+            .into(imgAuthor)
 
         img.setOnClickListener({
             if (flag){
@@ -38,7 +51,6 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-
         })
     }
 }
